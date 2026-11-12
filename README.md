@@ -35,15 +35,15 @@ Kubernetes รันกล่อง 2 ชุด + มีทางเข้า (S
 
 ### คำศัพท์ที่จะเจอ
 
-| คำ  ความหมายแบบง่าย 
+ คำ  ความหมายแบบง่าย 
 
-| Flask  เครื่องมือเขียนเว็บด้วย Python 
-| Docker image  กล่องสำเร็จรูปที่รวมเว็บกับของที่ต้องใช้ พร้อมรันได้ทุกเครื่อง 
-| Kubernetes  ระบบที่คอยรันและดูแลกล่องให้ทำงานอยู่เสมอ 
-| Pod  หนึ่งชุดของแอปที่ Kubernetes รัน (งานนี้มี 2 ชุด) 
-| Deployment  ใบสั่งงานบอก Kubernetes ว่าจะให้รันกี่ชุด 
-| Service  ทางเข้ากลางที่ส่งคำขอไปยัง Pod 
-| Terminal / PowerShell  หน้าต่างที่เราพิมพ์คำสั่ง 
+ Flask  เครื่องมือเขียนเว็บด้วย Python 
+ Docker image  กล่องสำเร็จรูปที่รวมเว็บกับของที่ต้องใช้ พร้อมรันได้ทุกเครื่อง 
+ Kubernetes  ระบบที่คอยรันและดูแลกล่องให้ทำงานอยู่เสมอ 
+ Pod  หนึ่งชุดของแอปที่ Kubernetes รัน (งานนี้มี 2 ชุด) 
+ Deployment  ใบสั่งงานบอก Kubernetes ว่าจะให้รันกี่ชุด 
+ Service  ทางเข้ากลางที่ส่งคำขอไปยัง Pod 
+ Terminal / PowerShell  หน้าต่างที่เราพิมพ์คำสั่ง 
 
 
  ขั้นที่ 0: เตรียมเครื่อง
@@ -168,14 +168,14 @@ CMD ["gunicorn", "--bind", "0.0.0.0:3000", "app:app"]
 
 อธิบายทีละบรรทัด:
 
-| บรรทัด | ทำอะไร |
-| FROM python:3.12-slim  เริ่มจากกล่องที่มี Python อยู่แล้ว 
-| WORKDIR /app | ใช้โฟลเดอร์ /app ในกล่องเป็นที่ทำงาน 
-| COPY requirements.txt .  ก๊อปรายการแพ็กเกจเข้ากล่อง 
-| RUN pip install ...  ติดตั้งแพ็กเกจ 
-| COPY app.py .  ก๊อปตัวเว็บเข้ากล่อง 
-| EXPOSE 3000  ระบุว่าเว็บใช้พอร์ต 3000 
-| CMD [...]  คำสั่งเริ่มเว็บด้วย Gunicorn (app:app = ไฟล์ app.py + ตัวแปรชื่อ app) 
+ บรรทัด  ทำอะไร 
+ FROM python:3.12-slim  เริ่มจากกล่องที่มี Python อยู่แล้ว 
+ WORKDIR /app | ใช้โฟลเดอร์ /app ในกล่องเป็นที่ทำงาน 
+ COPY requirements.txt .  ก๊อปรายการแพ็กเกจเข้ากล่อง 
+ RUN pip install ...  ติดตั้งแพ็กเกจ 
+ COPY app.py .  ก๊อปตัวเว็บเข้ากล่อง 
+ EXPOSE 3000  ระบุว่าเว็บใช้พอร์ต 3000 
+ CMD [...]  คำสั่งเริ่มเว็บด้วย Gunicorn (app:app = ไฟล์ app.py + ตัวแปรชื่อ app) 
 
 ### ไฟล์ที่ 5: deployment.yaml (ใบสั่งงาน Kubernetes)
 
@@ -430,14 +430,14 @@ python -m flask run
 
 ## สรุป
 
-| ขั้น | ทำอะไร | คำสั่งหลัก |
+ ขั้น  ทำอะไร  คำสั่งหลัก 
 
-| 1–3 | สร้างโฟลเดอร์และไฟล์ 5 ไฟล์ | — |
-| 4 | ตรวจเครื่องมือ | docker --version, kubectl get nodes 
-| 5 | สร้างกล่อง (image) | docker build -t flask-k8s:1.0 . 
-| 6 | สั่ง Kubernetes รันแอป | kubectl apply -f deployment.yaml 
-| 7 | ตรวจว่าทำงาน | kubectl rollout status deployment/flask-demo, kubectl get pods 
-| 8 | เปิดเว็บ | kubectl port-forward service/flask-demo 3000:3000 
+ 1–3  สร้างโฟลเดอร์และไฟล์ 5 ไฟล์ | — |
+ 4  ตรวจเครื่องมือ  docker --version, kubectl get nodes 
+ 5  สร้างกล่อง (image)  docker build -t flask-k8s:1.0 . 
+ 6  สั่ง Kubernetes รันแอป  kubectl apply -f deployment.yaml 
+ 7  ตรวจว่าทำงาน  kubectl rollout status deployment/flask-demo, kubectl get pods 
+ 8  เปิดเว็บ  kubectl port-forward service/flask-demo 3000:3000 
 
 งานนี้ไม่ใช้ Docker Compose (compose.yaml) เพราะสั่ง Kubernetes โดยตรงผ่าน deployment.yaml
 
