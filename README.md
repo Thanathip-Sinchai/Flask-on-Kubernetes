@@ -431,7 +431,8 @@ python -m flask run
 
  ขั้น  ทำอะไร  คำสั่งหลัก 
 
- 1–3  สร้างโฟลเดอร์และไฟล์ 5 ไฟล์ | — |
+ 1–3  สร้างโฟลเดอร์และไฟล์ 5 ไฟล์  
+ 
  4.  ตรวจเครื่องมือ  docker --version, kubectl get nodes 
  5.  สร้างกล่อง (image)  docker build -t flask-k8s:1.0 . 
  6.  สั่ง Kubernetes รันแอป  kubectl apply -f deployment.yaml 
