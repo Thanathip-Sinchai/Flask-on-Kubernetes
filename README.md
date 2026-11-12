@@ -1,6 +1,6 @@
-# รันเว็บ Flask บน Kubernetes 
+# รันเว็บ Flask บน Kubernetes
 
-ทำตามทีละขั้นตามลำดับ 
+ทำตามทีละขั้นตามลำดับ
 
 สิ่งที่จะได้เมื่อทำเสร็จ: เปิด http://localhost:3000 แล้วเห็นข้อความ Hello World Gus โดยเว็บนี้รันอยู่บน Kubernetes 2 ชุด
 
@@ -8,17 +8,18 @@
 
 ---
 
-0. [เตรียมเครื่อง](ขั้นที่-0-เตรียมเครื่อง)
-1. [สร้างโฟลเดอร์และเปิดใน VS Code](ขั้นที่-1-สร้างโฟลเดอร์และเปิดใน-vs-code)
-2. [เปิด Terminal](ขั้นที่-2-เปิด-terminal)
-3. [สร้างไฟล์ 5 ไฟล์](ขั้นที่-3-สร้างไฟล์-5-ไฟล์)
-4. [ตรวจว่า Docker และ Kubernetes พร้อม](ขั้นที่-4-ตรวจว่า-docker-และ-kubernetes-พร้อม)
-5. [สร้าง Docker image](ขั้นที่-5-สร้าง-docker-image)
-6. [สั่ง Kubernetes ให้รันแอป](ขั้นที่-6-สั่ง-kubernetes-ให้รันแอป)
-7. [ตรวจว่าแอปทำงาน](ขั้นที่-7-ตรวจว่าแอปทำงาน)
-8. [เปิดเว็บ](ขั้นที่-8-เปิดเว็บ)
-9. [งานที่ทำต่อได้](งานที่ทำต่อได้) (เปิดใหม่ / แก้โค้ด / ลบทิ้ง / ลองรันบนเครื่อง)
+## สารบัญ
 
+0. [เตรียมเครื่อง](#ขั้นที่-0-เตรียมเครื่อง)
+1. [สร้างโฟลเดอร์และเปิดใน VS Code](#ขั้นที่-1-สร้างโฟลเดอร์และเปิดใน-vs-code)
+2. [เปิด Terminal](#ขั้นที่-2-เปิด-terminal)
+3. [สร้างไฟล์ 5 ไฟล์](#ขั้นที่-3-สร้างไฟล์-5-ไฟล์)
+4. [ตรวจว่า Docker และ Kubernetes พร้อม](#ขั้นที่-4-ตรวจว่า-docker-และ-kubernetes-พร้อม)
+5. [สร้าง Docker image](#ขั้นที่-5-สร้าง-docker-image)
+6. [สั่ง Kubernetes ให้รันแอป](#ขั้นที่-6-สั่ง-kubernetes-ให้รันแอป)
+7. [ตรวจว่าแอปทำงาน](#ขั้นที่-7-ตรวจว่าแอปทำงาน)
+8. [เปิดเว็บ](#ขั้นที่-8-เปิดเว็บ)
+9. [งานที่ทำต่อได้](#งานที่ทำต่อได้) (เปิดใหม่ / แก้โค้ด / ลบทิ้ง / ลองรันบนเครื่อง)
 
 ---
 
@@ -34,21 +35,21 @@ Kubernetes รันกล่อง 2 ชุด + มีทางเข้า (S
 เปิดเว็บที่ http://localhost:3000
 ```
 
-
 ### คำศัพท์ที่จะเจอ
 
- คำ  ความหมายแบบง่าย 
+| คำ | ความหมายแบบง่าย |
+|---|---|
+| Flask | เครื่องมือเขียนเว็บด้วย Python |
+| Docker image | กล่องสำเร็จรูปที่รวมเว็บกับของที่ต้องใช้ พร้อมรันได้ทุกเครื่อง |
+| Kubernetes | ระบบที่คอยรันและดูแลกล่องให้ทำงานอยู่เสมอ |
+| Pod | หนึ่งชุดของแอปที่ Kubernetes รัน (งานนี้มี 2 ชุด) |
+| Deployment | ใบสั่งงานบอก Kubernetes ว่าจะให้รันกี่ชุด |
+| Service | ทางเข้ากลางที่ส่งคำขอไปยัง Pod |
+| Terminal / PowerShell | หน้าต่างที่เราพิมพ์คำสั่ง |
 
-1. Flask  เครื่องมือเขียนเว็บด้วย Python 
-2. Docker image  กล่องสำเร็จรูปที่รวมเว็บกับของที่ต้องใช้ พร้อมรันได้ทุกเครื่อง 
-3. Kubernetes  ระบบที่คอยรันและดูแลกล่องให้ทำงานอยู่เสมอ 
-4. Pod  หนึ่งชุดของแอปที่ Kubernetes รัน (งานนี้มี 2 ชุด) 
-5. Deployment  ใบสั่งงานบอก Kubernetes ว่าจะให้รันกี่ชุด 
-6. Service  ทางเข้ากลางที่ส่งคำขอไปยัง Pod 
-7. Terminal / PowerShell  หน้าต่างที่เราพิมพ์คำสั่ง 
+---
 
-
- ขั้นที่ 0: เตรียมเครื่อง
+## ขั้นที่ 0: เตรียมเครื่อง
 
 ติดตั้งให้ครบก่อน (ถ้ามีแล้วข้ามได้)
 
@@ -58,13 +59,14 @@ Kubernetes รันกล่อง 2 ชุด + มีทางเข้า (S
 
 จากนั้นเปิด Docker Desktop แล้วเปิด Kubernetes ในหน้า Settings ของโปรแกรม รอจนสถานะ Kubernetes พร้อมใช้งาน
 
+---
 
-ขั้นที่ 1: สร้างโฟลเดอร์และเปิดใน VS Code
+## ขั้นที่ 1: สร้างโฟลเดอร์และเปิดใน VS Code
 
-งานทั้งหมดจะเก็บไว้ที่ C:\code\me (ตัวอย่างจะเก็บไฟล์ไว้ที่ไหนก็ได้ตามสดวก)
+งานทั้งหมดจะเก็บไว้ที่ C:\code\me (ตัวอย่างนี้จะเก็บไฟล์ไว้ที่ไหนก็ได้ตามสะดวก)
 
 1. เปิด File Explorer แล้วเข้าไดรฟ์ C:
-2. ถ้ายังไม่มีโฟลเดอร์ code ให้คลิกขวาพื้นที่ว่าง เลือก New > Folder ตั้งชื่อ code  (ชื่อตั้งตามที่ตัวเองจะตั้งอะไรก็แล้วแต่)
+2. ถ้ายังไม่มีโฟลเดอร์ code ให้คลิกขวาพื้นที่ว่าง เลือก New > Folder ตั้งชื่อ code (จะตั้งชื่ออะไรก็ได้ตามที่ต้องการ)
 3. เข้าไปใน C:\code แล้วสร้างโฟลเดอร์ชื่อ me จะได้ C:\code\me
 4. เปิด VS Code เลือก File > Open Folder...
 5. เลือก C:\code\me แล้วกด Select Folder
@@ -73,7 +75,7 @@ Kubernetes รันกล่อง 2 ชุด + มีทางเข้า (S
 
 ---
 
-ขั้นที่ 2: เปิด Terminal
+## ขั้นที่ 2: เปิด Terminal
 
 1. ใน VS Code เลือก Terminal > New Terminal
 2. จะมีหน้าต่างขึ้นด้านล่าง ให้ตรวจว่าเป็น PowerShell (ถ้าไม่ใช่ ให้เลือก PowerShell)
@@ -85,16 +87,16 @@ PS C:\code\me>
 
 ถ้าเห็นโฟลเดอร์อื่น ให้พิมพ์:
 
-powershell
+```powershell
 cd C:\code\me
-
+```
 
 > กฎสำคัญ: คำสั่งในกล่อง powershell ทุกอัน ให้พิมพ์ (หรือวาง) ใน Terminal นี้ แล้วกด Enter
 > ส่วนเนื้อหาในกล่องอื่น (python, yaml ฯลฯ) ให้วางลงในไฟล์ ไม่ใช่ใน Terminal
 
+---
 
-
-ขั้นที่ 3: สร้างไฟล์ 5 ไฟล์
+## ขั้นที่ 3: สร้างไฟล์ 5 ไฟล์
 
 ### วิธีสร้างไฟล์
 
@@ -169,14 +171,16 @@ CMD ["gunicorn", "--bind", "0.0.0.0:3000", "app:app"]
 ```
 
 อธิบายทีละบรรทัด:
-1. บรรทัด  ทำอะไร 
-2. FROM python:3.12-slim  เริ่มจากกล่องที่มี Python อยู่แล้ว 
-3. WORKDIR /app | ใช้โฟลเดอร์ /app ในกล่องเป็นที่ทำงาน 
-4. COPY requirements.txt .  ก๊อปรายการแพ็กเกจเข้ากล่อง 
-5. RUN pip install ...  ติดตั้งแพ็กเกจ 
-6. COPY app.py .  ก๊อปตัวเว็บเข้ากล่อง 
-7. EXPOSE 3000  ระบุว่าเว็บใช้พอร์ต 3000 
-8. CMD [...]  คำสั่งเริ่มเว็บด้วย Gunicorn (app:app = ไฟล์ app.py + ตัวแปรชื่อ app) 
+
+| บรรทัด | ทำอะไร |
+|---|---|
+| FROM python:3.12-slim | เริ่มจากกล่องที่มี Python อยู่แล้ว |
+| WORKDIR /app | ใช้โฟลเดอร์ /app ในกล่องเป็นที่ทำงาน |
+| COPY requirements.txt . | ก๊อปรายการแพ็กเกจเข้ากล่อง |
+| RUN pip install ... | ติดตั้งแพ็กเกจ |
+| COPY app.py . | ก๊อปตัวเว็บเข้ากล่อง |
+| EXPOSE 3000 | ระบุว่าเว็บใช้พอร์ต 3000 |
+| CMD [...] | คำสั่งเริ่มเว็บด้วย Gunicorn (app:app = ไฟล์ app.py + ตัวแปรชื่อ app) |
 
 ### ไฟล์ที่ 5: deployment.yaml (ใบสั่งงาน Kubernetes)
 
@@ -246,37 +250,38 @@ spec:
 
 4.1 ตรวจ Docker
 
-powershell
+```powershell
 docker --version
+```
 
 ✅ ควรเห็นเลขเวอร์ชัน
 ❌ ถ้าขึ้นว่าไม่พบคำสั่ง ให้ติดตั้งหรือเปิด Docker Desktop ก่อน
 
 4.2 ตรวจ Kubernetes
 
-powershell
+```powershell
 kubectl config current-context
 kubectl get nodes
-
+```
 
 ✅ ควรเห็น docker-desktop และ node ที่สถานะ Ready
 ❌ ถ้าเชื่อมต่อไม่ได้ ให้เปิด Docker Desktop รอให้ Kubernetes พร้อม แล้วลองใหม่
 
-
+---
 
 ## ขั้นที่ 5: สร้าง Docker image
 
-powershell
+```powershell
 docker build -t flask-k8s:1.0 .
-
+```
 
 อธิบาย: สั่งให้ Docker อ่าน Dockerfile แล้วสร้างกล่องชื่อ flask-k8s เวอร์ชัน (tag) 1.0 — อย่าลืมจุด . ท้ายคำสั่ง (แปลว่าใช้ไฟล์ในโฟลเดอร์ปัจจุบัน)
 
 ✅ รอจนจบโดยไม่มี error จากนั้นตรวจ:
 
-powershell
+```powershell
 docker image ls flask-k8s
-
+```
 
 ควรเห็น flask-k8s และ tag 1.0 ในรายการ
 
@@ -287,18 +292,18 @@ docker image ls flask-k8s
 
 ## ขั้นที่ 6: สั่ง Kubernetes ให้รันแอป
 
-powershell
+```powershell
 kubectl apply -f deployment.yaml
-
+```
 
 อธิบาย: ส่ง deployment.yaml ให้ Kubernetes แล้วให้ทำตามนั้น
 
-✅ ครั้งแรกควรเห็น
+✅ ครั้งแรกควรเห็น:
 
-----------text
+```text
 deployment.apps/flask-demo created
 service/flask-demo created
-
+```
 
 > ถ้าเห็น unchanged หรือ configured ไม่ใช่ข้อผิดพลาด แปลว่าเคยสร้างไว้แล้วหรือมีการอัปเดต
 
@@ -308,25 +313,25 @@ service/flask-demo created
 
 7.1 รอให้แอปเริ่ม
 
------powershell
+```powershell
 kubectl rollout status deployment/flask-demo
-
+```
 
 ✅ ควรเห็น deployment "flask-demo" successfully rolled out
 
 7.2 ดู Pod
 
-----powershell
+```powershell
 kubectl get pods
-
+```
 
 ✅ ควรเห็น 2 รายการที่ขึ้นต้นด้วย flask-demo- โดยแต่ละรายการ READY = 1/1 และ STATUS = Running
 
 7.3 ดู Service
 
------powershell
+```powershell
 kubectl get services
-
+```
 
 ✅ ควรเห็น flask-demo และพอร์ต 3000/TCP
 
@@ -338,24 +343,24 @@ kubectl get services
 
 Service ชนิดนี้เข้าได้เฉพาะภายใน Kubernetes จึงต้องเชื่อมพอร์ตมาที่เครื่องเรา:
 
-----powershell
+```powershell
 kubectl port-forward service/flask-demo 3000:3000
-
+```
 
 ✅ ควรเห็น:
 
-----text
+```text
 Forwarding from 127.0.0.1:3000 -> 3000
-
+```
 
 > ⚠️ ปล่อย Terminal นี้เปิดค้างไว้ (กด Ctrl+C = ปิดการเชื่อมต่อ)
 > ถ้าต้องพิมพ์คำสั่งอื่นต่อ ให้เปิด Terminal ใหม่ด้วยปุ่ม + ที่แถบ Terminal
 
 จากนั้นเปิดเบราว์เซอร์ไปที่:
 
-----text
+```text
 http://localhost:3000
-
+```
 
 🎉 ควรเห็นข้อความ Hello World Gus — เสร็จแล้ว!
 
@@ -378,79 +383,65 @@ http://localhost:3000
 1. แก้ app.py แล้วกด Ctrl+S
 2. สร้าง image เวอร์ชันใหม่ (เปลี่ยนเลข tag):
 
-   ----powershell
+   ```powershell
    docker build -t flask-k8s:1.1 .
-   
+   ```
 
 3. เปิด deployment.yaml แก้บรรทัดนี้ แล้วกด Ctrl+S:
 
-   ---yaml
+   ```yaml
    image: flask-k8s:1.0
-   
+   ```
 
    ให้เป็น:
 
-   ---yaml
+   ```yaml
    image: flask-k8s:1.1
-   
+   ```
 
 4. สั่งอัปเดต:
 
-   ---powershell
-
+   ```powershell
    kubectl apply -f deployment.yaml
-
    kubectl rollout status deployment/flask-demo
-
    kubectl get pods
-   
+   ```
 
 5. เมื่อ Pod ใหม่เป็น Running และ 1/1 ให้รีเฟรชหน้าเว็บ (ถ้า port-forward หยุดไป ให้รันใหม่)
 
 ### ลบแอปออกจาก Kubernetes
 
----powershell
+```powershell
 kubectl delete -f deployment.yaml
-
+```
 
 ### (ทางเลือก) ลองรันเว็บบนเครื่องก่อนใช้ Kubernetes
 
 ขั้นนี้ไม่จำเป็น ข้ามได้เลย ใช้เมื่ออยากลองเว็บแบบไม่ผ่าน Docker
 
----powershell
-
+```powershell
 py -m venv .venv
-
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
-
 .\.venv\Scripts\Activate.ps1
-
 pip install -r requirements.txt
-
 python -m flask run
-
+```
 
 - ถ้าสำเร็จจะเห็น (.venv) หน้าบรรทัดคำสั่ง
 - เปิด http://localhost:3000 ควรเห็น Hello World Gus
 - กด Ctrl+C เพื่อหยุดเว็บก่อนทำขั้นอื่นต่อ (พอร์ต 3000 จะได้ว่าง)
 
-
-
+---
 
 ## สรุป
 
- ขั้น  ทำอะไร  คำสั่งหลัก 
-
- 1–3  สร้างโฟลเดอร์และไฟล์ 5 ไฟล์  
- 
- 4.  ตรวจเครื่องมือ  docker --version, kubectl get nodes 
- 5.  สร้างกล่อง (image)  docker build -t flask-k8s:1.0 . 
- 6.  สั่ง Kubernetes รันแอป  kubectl apply -f deployment.yaml 
- 7.  ตรวจว่าทำงาน  kubectl rollout status deployment/flask-demo, kubectl get pods 
- 8.  เปิดเว็บ  kubectl port-forward service/flask-demo 3000:3000 
+| ขั้น | ทำอะไร | คำสั่งหลัก |
+|---|---|---|
+| 1–3 | สร้างโฟลเดอร์และไฟล์ 5 ไฟล์ | — |
+| 4 | ตรวจเครื่องมือ | docker --version, kubectl get nodes |
+| 5 | สร้างกล่อง (image) | docker build -t flask-k8s:1.0 . |
+| 6 | สั่ง Kubernetes รันแอป | kubectl apply -f deployment.yaml |
+| 7 | ตรวจว่าทำงาน | kubectl rollout status deployment/flask-demo, kubectl get pods |
+| 8 | เปิดเว็บ | kubectl port-forward service/flask-demo 3000:3000 |
 
 งานนี้ไม่ใช้ Docker Compose (compose.yaml) เพราะสั่ง Kubernetes โดยตรงผ่าน deployment.yaml
-
-
-
-------------------------------------------------------------------------------------END--------------------------------------------------------------------------------------------------------------
