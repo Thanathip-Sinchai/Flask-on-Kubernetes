@@ -414,9 +414,13 @@ kubectl delete -f deployment.yaml
 
 ---powershell
 py -m venv .venv
+
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+
 .\.venv\Scripts\Activate.ps1
+
 pip install -r requirements.txt
+
 python -m flask run
 
 
