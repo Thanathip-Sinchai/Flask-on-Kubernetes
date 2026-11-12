@@ -399,7 +399,7 @@ http://localhost:3000
    kubectl apply -f deployment.yaml
 
    kubectl rollout status deployment/flask-demo
-   
+
    kubectl get pods
    
 
