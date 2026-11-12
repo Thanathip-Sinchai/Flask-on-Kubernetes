@@ -24,6 +24,7 @@
 
 ## ภาพรวมแบบสั้น ๆ
 
+```text
 เขียนเว็บ (app.py)
       ↓  Dockerfile แพ็กเป็น "กล่อง"
 Docker image (กล่องสำเร็จรูป)
@@ -31,6 +32,7 @@ Docker image (กล่องสำเร็จรูป)
 Kubernetes รันกล่อง 2 ชุด + มีทางเข้า (Service)
       ↓  kubectl port-forward
 เปิดเว็บที่ http://localhost:3000
+```
 
 
 ### คำศัพท์ที่จะเจอ
