@@ -395,8 +395,11 @@ http://localhost:3000
 4. สั่งอัปเดต:
 
    ---powershell
+
    kubectl apply -f deployment.yaml
+
    kubectl rollout status deployment/flask-demo
+   
    kubectl get pods
    
 
