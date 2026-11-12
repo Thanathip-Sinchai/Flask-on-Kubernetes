@@ -413,6 +413,7 @@ kubectl delete -f deployment.yaml
 ขั้นนี้ไม่จำเป็น ข้ามได้เลย ใช้เมื่ออยากลองเว็บแบบไม่ผ่าน Docker
 
 ---powershell
+
 py -m venv .venv
 
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
