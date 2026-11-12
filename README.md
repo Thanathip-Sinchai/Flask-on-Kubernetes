@@ -167,15 +167,14 @@ CMD ["gunicorn", "--bind", "0.0.0.0:3000", "app:app"]
 ```
 
 อธิบายทีละบรรทัด:
-
- บรรทัด  ทำอะไร 
- FROM python:3.12-slim  เริ่มจากกล่องที่มี Python อยู่แล้ว 
- WORKDIR /app | ใช้โฟลเดอร์ /app ในกล่องเป็นที่ทำงาน 
- COPY requirements.txt .  ก๊อปรายการแพ็กเกจเข้ากล่อง 
- RUN pip install ...  ติดตั้งแพ็กเกจ 
- COPY app.py .  ก๊อปตัวเว็บเข้ากล่อง 
- EXPOSE 3000  ระบุว่าเว็บใช้พอร์ต 3000 
- CMD [...]  คำสั่งเริ่มเว็บด้วย Gunicorn (app:app = ไฟล์ app.py + ตัวแปรชื่อ app) 
+1. บรรทัด  ทำอะไร 
+2.FROM python:3.12-slim  เริ่มจากกล่องที่มี Python อยู่แล้ว 
+3.WORKDIR /app | ใช้โฟลเดอร์ /app ในกล่องเป็นที่ทำงาน 
+4.COPY requirements.txt .  ก๊อปรายการแพ็กเกจเข้ากล่อง 
+5.RUN pip install ...  ติดตั้งแพ็กเกจ 
+6.COPY app.py .  ก๊อปตัวเว็บเข้ากล่อง 
+7.EXPOSE 3000  ระบุว่าเว็บใช้พอร์ต 3000 
+8.CMD [...]  คำสั่งเริ่มเว็บด้วย Gunicorn (app:app = ไฟล์ app.py + ตัวแปรชื่อ app) 
 
 ### ไฟล์ที่ 5: deployment.yaml (ใบสั่งงาน Kubernetes)
 
